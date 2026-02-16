@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I'm Sorry</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: pink;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        h1 {
+            color: black;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 40px 0;
+            gap: 20px;
+        }
+
+        .image-box {
+            width: 200px;
+            height: 200px;
+            border: 3px dashed #667eea;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f8f9fa;
+            color: #667eea;
+            font-size: 14px;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .image-box img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .center-content {
+            flex: 1;
+            padding: 0 20px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 18px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-yes {
+            background: green;
+            color: white;
+        }
+
+        .btn-yes:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-no {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-no:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(231, 76, 60, 0.4);
+        }
+
+        .thank-you-message {
+            font-size: 1.5em;
+            color: #333;
+            line-height: 1.6;
+            margin: 20px 0;
+        }
+
+        .heart {
+            color: #e74c3c;
+            font-size: 3em;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+            padding: 0 20px;
+        }
+
+        .gallery-box {
+            width: 100%;
+            height: 200px;
+            border: 3px solid #667eea;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f8f9fa;
+            color: #667eea;
+            font-size: 14px;
+            text-align: center;
+            padding: 10px;
+            overflow: hidden;
+        }
+
+        .gallery-box img {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .animated-zoom {
+            animation: zoomInOut 2s ease-in-out infinite;
+        }
+
+        .animated-zoom:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .animated-zoom:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .animated-zoom:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .animated-zoom:nth-child(4) {
+            animation-delay: 0.9s;
+        }
+
+        .animated-zoom:nth-child(5) {
+            animation-delay: 1.2s;
+        }
+
+        .animated-zoom:nth-child(6) {
+            animation-delay: 1.5s;
+        }
+
+        @keyframes zoomInOut {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(0.85);
+            }
+        }
+
+        .error-container {
+            padding: 30px;
+        }
+
+        .error-404-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .error-404-svg {
+            margin-bottom: 40px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .error-404-svg svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .error-404-message h1 {
+            color: #333;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-transform: none;
+            letter-spacing: normal;
+        }
+
+        .error-404-message p {
+            font-size: 1.1em;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .error-404-message strong {
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .btn-back-home {
+            background:black;
+            color: white;
+            padding: 15px 40px;
+            font-size: 18px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-back-home:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-back {
+            background: black;
+            color: white;
+            padding: 15px 40px;
+            font-size: 18px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-back:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .image-container {
+                flex-direction: column;
+            }
+
+            .image-box {
+                width: 150px;
+                height: 150px;
+            }
+
+            .gallery-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .gallery-box {
+                height: 150px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            button {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+
+            .error-404-svg svg {
+                width: 250px;
+            }
+
+            .error-404-message h1 {
+                font-size: 1.4em;
+            }
+
+            .error-404-message p {
+                font-size: 1em;
+            }
+
+            .btn-back-home {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="page1" class="page active">
+            <div class="image-container">
+                <div class="image-box">
+                    <img src="images.jpg" alt="image 1">
+                </div>
+                
+                <div class="center-content">
+                    <h1>I'm So Sorry<br>Please Forgive Me</h1>
+                    <div class="heart">❤️</div>
+                </div>
+                
+                <div class="image-box">
+                    <img src="download.jpg" alt="image 2">
+                    
+                </div>
+            </div>
+            
+            <div class="buttons">
+                <button class="btn-yes" onclick="showYesPage()">Ya</button>
+                <button class="btn-no" onclick="showNoPage()">Tidak</button>
+            </div>
+        </div>
+
+        <div id="page2" class="page">
+            <div class="heart">💕</div>
+            <h1>Terima Kasih!</h1>
+            <div class="thank-you-message">
+                <p>MAKASIHHHH HONEEYYYYY</p>
+                <p>AKU JANJI GABAKALAN KAYAK TADI LAGIIIII</p>
+                <p>I LOVE YOU SO MUCH HONEYYY! ❤️</p>
+            </div>
+            
+            <div class="gallery-container">
+                <div class="gallery-box animated-zoom">
+                    <img src="WhatsApp Image 2026-02-16 at 8.33.05 PM (1).jpeg" alt="">
+                </div>
+                <div class="gallery-box animated-zoom">
+                   <img src="WhatsApp Image 2026-02-16 at 8.33.05 PM.jpeg" alt="">
+\                </div>
+                <div class="gallery-box animated-zoom">
+                    <img src="WhatsApp Image 2026-02-16 at 8.33.08 PM.jpeg" alt="">
+\                </div>
+                <div class="gallery-box animated-zoom">
+                    <img src="WhatsApp Image 2026-02-16 at 8.33.09 PM.jpeg" alt="">
+                </div>
+                <div class="gallery-box animated-zoom">
+                   <img src="WhatsApp Image 2026-02-16 at 8.33.11 PM.jpeg" alt="">
+                </div>
+                <div class="gallery-box animated-zoom">
+                    <img src="WhatsApp Image 2026-02-16 at 8.33.12 PM.jpeg" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div id="page3" class="page">
+            <div class="error-404-page">
+                <div class="error-404-svg">
+                    <svg width="380px" height="500px" viewBox="0 0 837 1045" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <path d="M353,9 L626.664028,170 L626.664028,487 L353,642 L79.3359724,487 L79.3359724,170 L353,9 Z" stroke="#667eea" stroke-width="6"></path>
+                            <path d="M78.5,529 L147,569.186414 L147,648.311216 L78.5,687 L10,648.311216 L10,569.186414 L78.5,529 Z" stroke="#667eea" stroke-width="6"></path>
+                            <path d="M773,186 L827,217.538705 L827,279.636651 L773,310 L719,279.636651 L719,217.538705 L773,186 Z" stroke="#667eea" stroke-width="6"></path>
+                            <path d="M639,529 L773,607.846761 L773,763.091627 L639,839 L505,763.091627 L505,607.846761 L639,529 Z" stroke="#667eea" stroke-width="6"></path>
+                            <path d="M281,801 L383,861.025276 L383,979.21169 L281,1037 L179,979.21169 L179,861.025276 L281,801 Z" stroke="#667eea" stroke-width="6"></path>
+                        </g>
+                    </svg>
+                </div>
+                <div class="error-404-message">
+                    <h1>Error 404 - Halaman Tidak Ditemukan!</h1>
+                    <p>Halaman "Tidak" yang Anda cari tidak tersedia.<br>
+                    Sistem hanya menerima jawaban <strong>"Ya"</strong></p>
+                    <button class="btn-back-home" onclick="showPage1()">← Kembali ke Halaman Utama</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showYesPage() {
+            document.getElementById('page1').classList.remove('active');
+            document.getElementById('page2').classList.add('active');
+            document.getElementById('page3').classList.remove('active');
+        }
+
+        function showNoPage() {
+            document.getElementById('page1').classList.remove('active');
+            document.getElementById('page2').classList.remove('active');
+            document.getElementById('page3').classList.add('active');
+        }
+
+        function showPage1() {
+            document.getElementById('page1').classList.add('active');
+            document.getElementById('page2').classList.remove('active');
+            document.getElementById('page3').classList.remove('active');
+        }
+    </script>
+</body>
+</html>
